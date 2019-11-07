@@ -44,6 +44,13 @@ public class FirstCustomView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        drawByRender(canvas);
+    }
+
+    private void drawByRender(Canvas canvas) {
+        if (mRender == null) {
+            return;
+        }
         SoftReference<Bitmap> srBitmap;
         synchronized (mRender.Bitmaps) {
             srBitmap = mRender.Bitmaps.size() > 0 ? mRender.Bitmaps.get(0) : null;
@@ -60,7 +67,6 @@ public class FirstCustomView extends View {
                 mRender.Bitmaps.remove(0);
             }
         }
-
     }
 
     private BitmapRender mRender;

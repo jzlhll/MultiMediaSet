@@ -1,51 +1,79 @@
 package com.allan.multimediaset;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.Manifest;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
+import com.allan.baselib.IModulePermission;
+import com.allan.baselib.MyLog;
+import com.allan.firstlearn.FirstLearnActivity;
+import com.allan.secondlearn.SecondActivity;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
 public class MainActivity extends AppCompatActivity {
-
+    private static final boolean BIG_THAN_6_0 = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
 
-    public void onClickedFirstBtn(View v) {
+    private static final int RC_STORAGE_PERMISSION = 101;
+    private static final int RC_STORAGE_AUDIO_PERMISSION = 102;
 
+    public void onClickedFirstBtn(View v) {
+        if (BIG_THAN_6_0) {
+            IModulePermission mp = new com.allan.firstlearn.ModelPermissions();
+            if (EasyPermissions.hasPermissions(this, mp.getPermissions())) {
+                // Already have permission, do the thing
+                // ...
+                startFirstBtn();
+            } else {
+                // Do not have permissions, request them now
+                EasyPermissions.requestPermissions(this, mp.getShowWords(),
+                        RC_STORAGE_PERMISSION, mp.getPermissions());
+            }
+        } else {
+            startFirstBtn();
+        }
     }
 
-    /**
-     * 需要申请的权限数组
-     */
-    protected String[] needPermissions = {
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-    };
+    @AfterPermissionGranted(RC_STORAGE_PERMISSION)//easypermissions注解要求不能带参数哦。比如上面那个方法就会有问题
+    private void startFirstBtn() {
+        startActivity(new Intent(this, FirstLearnActivity.class));
+    }
+
+    public void onClickedSecondBtn(View v) {
+        if (BIG_THAN_6_0) {
+            IModulePermission mp = new com.allan.secondlearn.ModelPermissions();
+            if (EasyPermissions.hasPermissions(this, mp.getPermissions())) {
+                // Already have permission, do the thing
+                // ...
+                startSecondBtn();
+            } else {
+                // Do not have permissions, request them now
+                EasyPermissions.requestPermissions(this, mp.getShowWords(),
+                        RC_STORAGE_AUDIO_PERMISSION, mp.getPermissions());
+            }
+        } else {
+            startSecondBtn();
+        }
+    }
+
+    @AfterPermissionGranted(RC_STORAGE_AUDIO_PERMISSION) //easypermissions注解要求不能带参数哦。比如上面那个方法就会有问题
+    private void startSecondBtn() {
+        startActivity(new Intent(this, SecondActivity.class));
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         // Forward results to EasyPermissions
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
-    }
-
-    @AfterPermissionGranted(RC_CAMERA_AND_LOCATION)
-    private void methodRequiresTwoPermission() {
-        if (EasyPermissions.hasPermissions(this, needPermissions)) {
-            // Already have permission, do the thing
-            // ...
-        } else {
-            // Do not have permissions, request them now
-            EasyPermissions.requestPermissions(this, getString(R.string.camera_and_location_rationale),
-                    RC_CAMERA_AND_LOCATION, perms);
-        }
     }
 }

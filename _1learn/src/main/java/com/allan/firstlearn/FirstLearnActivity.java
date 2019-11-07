@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -20,12 +19,16 @@ public class FirstLearnActivity extends Activity {
         CUSTOM_VIEW
     }
 
-    private static final MODE DEFAULT_MODE = MODE.IMAGE_VIEW; //TODO 自行修改三个模式显示咯
+    private static final MODE DEFAULT_MODE = MODE.CUSTOM_VIEW; //TODO 自行修改三个模式显示咯
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.firstlearn_main);
+
+    }
+
+    public void onClickedLoad(View view) {
         switch (DEFAULT_MODE) {
             case IMAGE_VIEW:{
                 ImageView v = findViewById(R.id.img);
@@ -42,17 +45,17 @@ public class FirstLearnActivity extends Activity {
                     e.printStackTrace();
                 }
             }
-                break;
+            break;
             case SURFACE_VIEW: {
                 MyCustomSurfaceView v = findViewById(R.id.sufaceview);
                 v.drawByMine();
             }
-                break;
+            break;
             case CUSTOM_VIEW: {
-               FirstCustomView v = findViewById(R.id.customview);
-               v.drawByMine();
+                FirstCustomView v = findViewById(R.id.customview);
+                v.drawByMine();
             }
-                break;
+            break;
         }
     }
 }

@@ -5,11 +5,21 @@ import android.util.Log;
 public class MyLog {
     private static final String TAG = "MMSet";
     private static final boolean DEBUG_LEVEL_E = true;
-    private static final boolean DEBUG_LEVEL_W = true && DEBUG_LEVEL_E;
-    private static final boolean DEBUG_LEVEL_D = true && DEBUG_LEVEL_E && DEBUG_LEVEL_W;
+    //如果你希望降低debug日志；则改第一位true为false
+    private static final boolean DEBUG_LEVEL_W = true && DEBUG_LEVEL_E && BuildConfig.DEBUG;
+    //如果你希望降低debug日志；则改第一位true为false
+    private static final boolean DEBUG_LEVEL_D = true && DEBUG_LEVEL_E && DEBUG_LEVEL_W && BuildConfig.DEBUG;
+    //由于很多手机d级别以下日志太多，调试的时候，我们改为true，将d改成w
+    private static final boolean CONVERT_LEVEL_D_TO_W = true && BuildConfig.DEBUG;
 
     public static void d(String tag, String log) {
-        if(DEBUG_LEVEL_D) Log.d(TAG, tag + ":" + log);
+        if(DEBUG_LEVEL_D) {
+            if (CONVERT_LEVEL_D_TO_W) {
+                Log.w(TAG, tag + ":" + log);
+            } else {
+                Log.d(TAG, tag + ":" + log);
+            }
+        }
     }
 
     public static void e(String tag, String log) {
@@ -21,7 +31,13 @@ public class MyLog {
     }
 
     public static void d(String log) {
-        if(DEBUG_LEVEL_D) Log.d(TAG, log);
+        if(DEBUG_LEVEL_D) {
+            if (CONVERT_LEVEL_D_TO_W) {
+                Log.w(TAG, log);
+            } else {
+                Log.d(TAG, log);
+            }
+        }
     }
 
     public static void e(String log) {

@@ -11,7 +11,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickedFirstBtn"
-            android:text="第 1课: 绘制图片" />
+            android:text="第 1课: 三种方法绘制图片" />
+        <Button
+            android:id="@+id/secondBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClickedSecondBtn"
+            android:text="第 2课: audioRecorder" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
 

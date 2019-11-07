@@ -61,7 +61,7 @@ public class MyCustomSurfaceView extends SurfaceView implements SurfaceHolder.Ca
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.STROKE);
 
-        Bitmap bitmap = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory().getPath() + File.separator + "test.png");  // 获取bitmap
+        Bitmap bitmap = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory().getPath() + File.separator + "test0.png");  // 获取bitmap
         Canvas canvas = getHolder().lockCanvas();  // 先锁定当前surfaceView的画布
         canvas.drawBitmap(bitmap, 0, 0, paint); //执行绘制操作
         getHolder().unlockCanvasAndPost(canvas); // 解除锁定并显示在界面上
