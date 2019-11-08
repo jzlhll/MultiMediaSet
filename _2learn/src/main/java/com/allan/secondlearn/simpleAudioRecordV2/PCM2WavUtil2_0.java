@@ -3,10 +3,12 @@ package com.allan.secondlearn.simpleAudioRecordV2;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 
-import androidx.annotation.NonNull;
-
 import java.io.IOException;
 import java.io.RandomAccessFile;
+
+import androidx.annotation.NonNull;
+
+import com.allan.baselib.MyLog;
 
 /**
  * 将pcm音频文件转换为wav音频文件
@@ -122,6 +124,7 @@ public class PCM2WavUtil2_0 {
 
     public void endPcmHeader(@NonNull RandomAccessFile file, long totalAudioLen) throws IOException {
         long totalDataLen = totalAudioLen + 36;
+        MyLog.d("endPcmHeader totalAudioLen:" + totalAudioLen + " totalData: " + totalDataLen);
         byte[] head4_7 = new byte[] {
             (byte) (totalDataLen & 0xff),
             (byte) ((totalDataLen >> 8) & 0xff),

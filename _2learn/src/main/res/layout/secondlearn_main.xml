@@ -7,8 +7,46 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SimplePCM2Wav" />
+        android:text="MediaRecord" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
+        <Button
+            android:id="@+id/buttonMediaStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickedMediaRecord"
+            android:text="开始" />
+
+        <Button
+            android:id="@+id/buttonMediaStop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickedMediaRecord"
+            android:text="停止" />
+
+
+        <Button
+            android:id="@+id/buttonMediaPause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickedMediaRecord"
+            android:text="暂停" />
+
+        <Button
+            android:id="@+id/buttonMediaResume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickedMediaRecord"
+            android:text="恢复" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SimpleAudioRecord: PCM2Wav" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,22 +56,20 @@
             android:id="@+id/buttonSimpleStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onClickedSecond"
+            android:onClick="onClickedAudioRecordV1"
             android:text="开始" />
 
         <Button
             android:id="@+id/buttonSimpleStop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onClickedSecond"
+            android:onClick="onClickedAudioRecordV1"
             android:text="停止" />
     </LinearLayout>
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="DirectWav" />
-
+        android:text="SimpleAudioRecordV2: DirectWav" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,14 +79,53 @@
             android:id="@+id/buttonDirectStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onClickedDirectly"
+            android:onClick="onClickedAudioRecordV2"
             android:text="开始" />
 
         <Button
             android:id="@+id/buttonDirectStop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onClickedDirectly"
+            android:onClick="onClickedAudioRecordV2"
             android:text="停止" />
     </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="AudioRecordV3: ResumeWav" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buttonResumeStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickedAudioRecordV3"
+            android:text="开始" />
+
+        <Button
+            android:id="@+id/buttonResumeStop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickedAudioRecordV3"
+            android:text="停止" />
+
+        <Button
+            android:id="@+id/buttonResumePause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickedAudioRecordV3"
+            android:text="暂停" />
+        <Button
+            android:id="@+id/buttonResumeResume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickedAudioRecordV3"
+            android:text="恢复" />
+
+    </LinearLayout>
+
 </LinearLayout>

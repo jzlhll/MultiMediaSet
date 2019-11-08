@@ -3,7 +3,7 @@ package com.allan.baselib;
 import android.util.Log;
 
 public class MyLog {
-    private static final String TAG = "MMSet";
+    private static final String TAG = "allan";
     private static final boolean DEBUG_LEVEL_E = true;
     //如果你希望降低debug日志；则改第一位true为false
     private static final boolean DEBUG_LEVEL_W = true && DEBUG_LEVEL_E && BuildConfig.DEBUG;

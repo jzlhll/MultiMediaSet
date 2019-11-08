@@ -18,46 +18,19 @@ import java.io.RandomAccessFile;
  * SimplePCMAudioRecord是一个实现了普通录制声音的代码。只能录制PCM。不支持停止的模式。而且PCM不能播放。
  * 2.0版本则将使用randomAccessFile直接先写入头；再录制；再最后stop的时候跳回去写入length即可。
  */
-public class SimplePCMAudioRecord2_0 implements ISimpleRecord {
-    private static final String TAG = SimplePCMAudioRecord2_0.class.getSimpleName();
+public class SimpleWavAudioRecord2_0 implements ISimpleRecord {
+    private static final String TAG = SimpleWavAudioRecord2_0.class.getSimpleName();
     private AudioRecord mAudioRecord;
     public static final int SAMPLE_RATE = 44100; //采样率
     public static final int CANNEL_CONFIG = AudioFormat.CHANNEL_IN_STEREO;//双声道;//AudioFormat.CHANNEL_IN_MONO;//单声道
     public static final int FORMAT = AudioFormat.ENCODING_PCM_16BIT;//音频格式
     private int mMinBufferSize;
-    private byte mData[];
+    private byte[] mData;
     private boolean mIsRecording = false;
-    private boolean mIsLive = false;
 
-    public SimplePCMAudioRecord2_0() {
-    }
+    private static final String FILE_NAME = Environment.getExternalStorageDirectory() + File.separator + "test2_0.wav";
 
-    @Override
-    public void init() {
-        mIsLive = true;
-        if (mAudioRecord != null) {
-            throw new RuntimeException("错误init");
-        }
-        mMinBufferSize = AudioRecord.getMinBufferSize(SAMPLE_RATE, CANNEL_CONFIG, FORMAT);
-        MyLog.d(TAG, "min buff size " + mMinBufferSize);
-        mAudioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC, SAMPLE_RATE,
-                CANNEL_CONFIG, FORMAT, mMinBufferSize);
-        mData = new byte[mMinBufferSize];
-    }
-
-    @Override
-    public void release() {
-        mIsLive = false;
-        if (mIsRecording) {
-            mIsRecording = false;
-        } else {
-            if (mAudioRecord != null) {
-                mAudioRecord.release();
-            }
-            mData = null;
-            mAudioRecord = null;
-            MyLog.d(TAG,"release!!!");
-        }
+    public SimpleWavAudioRecord2_0() {
     }
 
     @Override
@@ -65,9 +38,18 @@ public class SimplePCMAudioRecord2_0 implements ISimpleRecord {
         ThreadPoolUtils.getThreadPollProxy().execute(new Runnable() {
             @Override
             public void run() {
+                if (mAudioRecord != null) {
+                    throw new RuntimeException("错误init");
+                }
+                mMinBufferSize = AudioRecord.getMinBufferSize(SAMPLE_RATE, CANNEL_CONFIG, FORMAT);
+                MyLog.d(TAG, "min buff size " + mMinBufferSize);
+                mAudioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC, SAMPLE_RATE,
+                        CANNEL_CONFIG, FORMAT, mMinBufferSize);
+                mData = new byte[mMinBufferSize];
+
                 mAudioRecord.startRecording();
                 mIsRecording = true;
-                File f = new File(Environment.getExternalStorageDirectory() + File.separator + "test2_0.wav");
+                File f = new File(FILE_NAME);
                 if (f.exists()) {
                     f.delete();
                 }//先删掉，再重建RandomAccessFile文件
@@ -90,7 +72,6 @@ public class SimplePCMAudioRecord2_0 implements ISimpleRecord {
                     }
                     while (mIsRecording) {
                         int read = mAudioRecord.read(mData, 0, mMinBufferSize);
-                        MyLog.d(TAG, "read...." + read);
                         // 如果读取音频数据没有出现错误，就将数据写入到文件
                         if (AudioRecord.ERROR_INVALID_OPERATION != read) {
                             try {
@@ -119,10 +100,13 @@ public class SimplePCMAudioRecord2_0 implements ISimpleRecord {
                     e.printStackTrace();
                 }
 
-                if (!mIsLive) {
-                    MyLog.d(TAG, "release in run()");
-                    release();
+                MyLog.d(TAG, "release in run()");
+                if (mAudioRecord != null) {
+                    mAudioRecord.release();
                 }
+                mData = null;
+                mAudioRecord = null;
+                MyLog.d(TAG,"release!!!");
             }
         });
     }

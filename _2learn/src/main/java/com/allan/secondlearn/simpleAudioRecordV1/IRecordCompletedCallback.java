@@ -1,4 +1,4 @@
-package com.allan.secondlearn.simpleAudioRecord;
+package com.allan.secondlearn.simpleAudioRecordV1;
 
 import java.io.File;
 
