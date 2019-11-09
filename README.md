@@ -20,9 +20,24 @@
    3.0是一个通过lock实现的简单等待和恢复(不推荐)；
    
    3.1是通过文件直接拼接后续的录音buffer而做的(推荐)。
+   
+   >  Android SDK 提供两套音频采集API，MediaRecorder 和 AudioRecord，前者可以直接把麦克风录入的音频数据进行编码压缩（如AMR、MP3等）并存成文件；后者更接近底层，更加自由灵活，可以得到原始的一帧帧PCM音频数据。如果想简单地做一个录音机，推荐使用 MediaRecorder；而如果需要对音频做进一步的算法处理、或者采用第三方的编码库进行压缩、以及网络传输等应用，则建议使用 AudioRecord，其实 MediaRecorder 底层也是调用了 AudioRecord 与 Android Framework 层的 AudioFlinger 进行交互的。直播中实时采集音频自然是要用`AudioRecord`。 
 
 #### 第三课：_3learn  学习audio相关的播放
 
-1. soundPool适用于简单的音效播放；
-2. mediaPlayer实现了简单的监听完成，监听拖动，暂停，恢复等基本使用；支持多种媒体类型；
-3. audioTrack TODO
+1. `soundPool` 适用于简单的音效播放；
+
+2. `mediaPlayer` 实现了简单的监听完成，监听拖动，暂停，恢复等基本使用；支持多种媒体类型；
+
+3. `audioTrack` TODO
+
+   > > 区别
+   >
+   > MediaPlayer可以播放多种格式的声音文件，例如MP3，AAC，WAV，OGG，MIDI等。MediaPlayer会在framework层创建对应的音频解码器。而AudioTrack只能播放已经解码的PCM流，如果对比支持的文件格式的话则是AudioTrack只支持wav格式的音频文件，因为wav格式的音频文件大部分都是PCM流。AudioTrack不创建解码器，所以只能播放不需要解码的wav文件。
+   >
+   > > 联系
+   >
+   > MediaPlayer在framework层还是会创建AudioTrack，把解码后的PCM数流传递给AudioTrack，AudioTrack再传递给AudioFlinger进行混音，然后才传递给硬件播放,所以是MediaPlayer包含了AudioTrack。
+   >
+   > MediaPlayer 更加适合在后台长时间播放本地音乐文件或者在线的流式资源; SoundPool 则适合播放比较短的音频片段，比如游戏声音、按键声、铃声片段等等，它可以同时播放多个音频; 而 AudioTrack 则更接近底层，提供了非常强大的控制能力，支持低延迟播放，适合流媒体和VoIP语音电话等场景。
+
