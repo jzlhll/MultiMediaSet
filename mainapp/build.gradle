@@ -23,7 +23,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'pub.devrel:easypermissions:3.0.0'
-    implementation project(path: ':baselib')
+    implementation project(path: ':mainBaseLib')
     implementation project(path: ':_1learn')
     implementation project(path: ':_2learn')
 }
