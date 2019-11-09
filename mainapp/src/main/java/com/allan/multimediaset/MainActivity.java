@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
+import com.allan.audiotrack.ThirdMainActivity;
 import com.allan.baselib.IModulePermission;
 import com.allan.baselib.MyLog;
 import com.allan.firstlearn.FirstLearnActivity;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int RC_STORAGE_PERMISSION = 101;
     private static final int RC_STORAGE_AUDIO_PERMISSION = 102;
+    private static final int RC_STORAGE_PERMISSION_3 = 103;
 
     public void onClickedFirstBtn(View v) {
         if (BIG_THAN_6_0) {
@@ -69,6 +71,29 @@ public class MainActivity extends AppCompatActivity {
     private void startSecondBtn() {
         startActivity(new Intent(this, SecondActivity.class));
     }
+
+    public void onClickedThirdBtn(View v) {
+        if (BIG_THAN_6_0) {
+            IModulePermission mp = new com.allan.audiotrack.ModelPermissions();
+            if (EasyPermissions.hasPermissions(this, mp.getPermissions())) {
+                // Already have permission, do the thing
+                // ...
+                startThirdBtn();
+            } else {
+                // Do not have permissions, request them now
+                EasyPermissions.requestPermissions(this, mp.getShowWords(),
+                        RC_STORAGE_PERMISSION_3, mp.getPermissions());
+            }
+        } else {
+            startThirdBtn();
+        }
+    }
+
+    @AfterPermissionGranted(RC_STORAGE_PERMISSION_3) //easypermissions注解要求不能带参数哦。比如上面那个方法就会有问题
+    private void startThirdBtn() {
+        startActivity(new Intent(this, ThirdMainActivity.class));
+    }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
