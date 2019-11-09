@@ -1,11 +1,11 @@
 # 多媒体学习之路 android
 主体框架分为`app`主模块作为入口；`baselib`作为最基本的库，给各个模块引用，定义了一些接口和封装Util类，比如permission，MyLog，ThreadUtils等。
 
-#### 第一课：_1learn    学习Bitmap Canvas Draw
+#### 第一课：_1learn  学习Bitmap Canvas Draw
 
 包含了三种View加载本地文件bitmap的学习。了解ImageView，SurfaceView，自定义View，配合Canvas绘制bitmap。
 
-#### 第二课：_2learn    学习AudioRecord与MediaRecord录制音频
+#### 第二课：_2learn  学习AudioRecord与MediaRecord录制音频
 
 `ISimpleRecord`（普通录音） 和`IRecord` （支持暂停与恢复录音）2个抽象接口表示需要实现的2种模式。
 
@@ -21,4 +21,8 @@
    
    3.1是通过文件直接拼接后续的录音buffer而做的(推荐)。
 
-#### 第三课
+#### 第三课：_3learn  学习audio相关的播放
+
+1. soundPool适用于简单的音效播放；
+2. mediaPlayer实现了简单的监听完成，监听拖动，暂停，恢复等基本使用；支持多种媒体类型；
+3. audioTrack TODO
