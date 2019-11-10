@@ -1,4 +1,4 @@
-package com.allan.audiotrack.soundpool;
+package com.allan.sound.soundpool;
 
 import android.content.Context;
 import android.media.AudioAttributes;
@@ -6,7 +6,7 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Build;
 
-import com.allan.audiotrack.R;
+import com.allan.sound.R;
 import com.allan.baselib.MyLog;
 
 /**

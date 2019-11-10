@@ -7,7 +7,9 @@ import android.os.Environment;
 
 import com.allan.baselib.MyLog;
 import com.allan.baselib.ThreadPoolUtils;
+import com.allan.pcm.PcmInfo;
 import com.allan.secondlearn.ISimpleRecord;
+import com.allan.secondlearn.PCMAndWavUtil;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -21,16 +23,38 @@ import java.io.RandomAccessFile;
 public class SimpleWavAudioRecord2_0 implements ISimpleRecord {
     private static final String TAG = SimpleWavAudioRecord2_0.class.getSimpleName();
     private AudioRecord mAudioRecord;
-    public static final int SAMPLE_RATE = 44100; //采样率
-    public static final int CANNEL_CONFIG = AudioFormat.CHANNEL_IN_STEREO;//双声道;//AudioFormat.CHANNEL_IN_MONO;//单声道
-    public static final int FORMAT = AudioFormat.ENCODING_PCM_16BIT;//音频格式
+    private int SAMPLE_RATE = 44100; //采样率
+    private int CHANNEL_CONFIG = AudioFormat.CHANNEL_IN_STEREO;//双声道;//AudioFormat.CHANNEL_IN_MONO;//单声道
+    private int FORMAT = AudioFormat.ENCODING_PCM_16BIT;//AudioFormat.ENCODING_PCM_8BIT;//音频格式
     private int mMinBufferSize;
     private byte[] mData;
     private boolean mIsRecording = false;
 
-    private static final String FILE_NAME = Environment.getExternalStorageDirectory() + File.separator + "test2_0.wav";
+    private final String FILE_NAME;
 
-    public SimpleWavAudioRecord2_0() {
+    public static PcmInfo[] getAllPcmInfos() { //8bit 很多设备不支持或者声音嘈杂
+        return new PcmInfo[]{
+                new PcmInfo("16k-Mono-16bit",16000, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT),
+                new PcmInfo("16k-Stereo-16bit",16000, AudioFormat.CHANNEL_IN_STEREO, AudioFormat.ENCODING_PCM_16BIT),
+                new PcmInfo("16k-Stereo-8bit",16000, AudioFormat.CHANNEL_IN_STEREO, AudioFormat.ENCODING_PCM_8BIT),
+                new PcmInfo("16k-Mono-8bit",16000, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_8BIT),
+
+                new PcmInfo("44k-Stereo-16bit",44100, AudioFormat.CHANNEL_IN_STEREO, AudioFormat.ENCODING_PCM_16BIT),
+                new PcmInfo("44k-Mono-16bit", 44100, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT),
+                new PcmInfo("44k-Stereo-8bit",44100, AudioFormat.CHANNEL_IN_STEREO, AudioFormat.ENCODING_PCM_8BIT),
+                new PcmInfo("44k-Mono-8bit",44100, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_8BIT),
+        };
+    }
+
+    public SimpleWavAudioRecord2_0(String filename) {
+        FILE_NAME = Environment.getExternalStorageDirectory() + File.separator + filename;
+    }
+
+    public SimpleWavAudioRecord2_0(String filename, PcmInfo pcmInfo) {
+        SAMPLE_RATE = pcmInfo.getSampleRate();
+        CHANNEL_CONFIG = pcmInfo.getChannelConfig();
+        FORMAT = pcmInfo.getEncodingFmt();
+        FILE_NAME = Environment.getExternalStorageDirectory() + File.separator + filename;
     }
 
     @Override
@@ -41,10 +65,10 @@ public class SimpleWavAudioRecord2_0 implements ISimpleRecord {
                 if (mAudioRecord != null) {
                     throw new RuntimeException("错误init");
                 }
-                mMinBufferSize = AudioRecord.getMinBufferSize(SAMPLE_RATE, CANNEL_CONFIG, FORMAT);
+                mMinBufferSize = AudioRecord.getMinBufferSize(SAMPLE_RATE, CHANNEL_CONFIG, FORMAT);
                 MyLog.d(TAG, "min buff size " + mMinBufferSize);
                 mAudioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC, SAMPLE_RATE,
-                        CANNEL_CONFIG, FORMAT, mMinBufferSize);
+                        CHANNEL_CONFIG, FORMAT, mMinBufferSize);
                 mData = new byte[mMinBufferSize];
 
                 mAudioRecord.startRecording();
@@ -61,7 +85,7 @@ public class SimpleWavAudioRecord2_0 implements ISimpleRecord {
                     e.printStackTrace();
                 }
 
-                PCM2WavUtil2_0 pcm = new PCM2WavUtil2_0(SAMPLE_RATE, CANNEL_CONFIG, FORMAT);
+                PCMAndWavUtil pcm = new PCMAndWavUtil(SAMPLE_RATE, CHANNEL_CONFIG, FORMAT);
                 long dataLength = 0;
                 if (null != file) {
                     try {

@@ -8,6 +8,7 @@ import android.os.Environment;
 import com.allan.baselib.MyLog;
 import com.allan.baselib.ThreadPoolUtils;
 import com.allan.secondlearn.ISimpleRecord;
+import com.allan.secondlearn.PCMAndWavUtil;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -138,7 +139,7 @@ public class SimpleWavAudioRecord implements ISimpleRecord, IRecordCompletedCall
     @Override
     public void onComplete(File file) {
         if (file.exists()) {
-            PCM2WavUtil pcmToWavUtil = new PCM2WavUtil(SimplePCMAudioRecord.SAMPLE_RATE,
+            PCMAndWavUtil pcmToWavUtil = new PCMAndWavUtil(SimplePCMAudioRecord.SAMPLE_RATE,
                     SimplePCMAudioRecord.CANNEL_CONFIG, SimplePCMAudioRecord.FORMAT);
             File wavFile = new File(FILE_NAME_WAV);
             if (wavFile.exists()) {

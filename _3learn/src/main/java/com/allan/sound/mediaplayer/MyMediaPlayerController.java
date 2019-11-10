@@ -1,4 +1,4 @@
-package com.allan.audiotrack.mediaplayer;
+package com.allan.sound.mediaplayer;
 
 import android.annotation.SuppressLint;
 import android.os.Build;

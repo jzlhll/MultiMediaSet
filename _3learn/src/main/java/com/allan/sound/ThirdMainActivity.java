@@ -1,4 +1,4 @@
-package com.allan.audiotrack;
+package com.allan.sound;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -9,15 +9,20 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-import com.allan.audiotrack.mediaplayer.MyMediaPlayer;
-import com.allan.audiotrack.mediaplayer.MyMediaPlayerController;
-import com.allan.audiotrack.soundpool.MySoundPool;
+import com.allan.baselib.MyLog;
+import com.allan.pcm.PcmInfo;
+import com.allan.secondlearn.PCMAndWavUtil;
+import com.allan.sound.audiotracker.MyAudioTrackerStatic;
+import com.allan.sound.mediaplayer.MyMediaPlayer;
+import com.allan.sound.mediaplayer.MyMediaPlayerController;
+import com.allan.sound.soundpool.MySoundPool;
 
 import java.io.File;
 
 public class ThirdMainActivity extends Activity {
     private MyMediaPlayerController myMediaPlayerController;
     MySoundPool mySoundPool;
+    private MyAudioTrackerStatic mStaticAudioTrack;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,6 +42,36 @@ public class ThirdMainActivity extends Activity {
 
         if (myMediaPlayerController != null) {
             myMediaPlayerController.close();
+        }
+
+        if (mStaticAudioTrack != null) {
+            mStaticAudioTrack.release();
+        }
+    }
+
+    public void onClickedAudioTrackStatic(View view) {
+        if (view.getId() == R.id.audioTrackStaticBtn) {
+            if (mStaticAudioTrack == null) {
+                mStaticAudioTrack = new MyAudioTrackerStatic();
+            }
+            mStaticAudioTrack.play(getApplicationContext());
+        }
+    }
+
+    public void onClickedAudioTrackStream(View view) {
+        if (view.getId() == R.id.audioTrackTestGetPcmInfoBtn) {
+            File[] files = new File(String.valueOf(Environment.getExternalStorageDirectory())).listFiles();
+            for(File f : files) {
+                if (f.getName().startsWith("v2_") && f.getName().endsWith(".wav")) {
+                   PcmInfo pcmInfo = PCMAndWavUtil.getInfo(f);
+                   if(pcmInfo != null) MyLog.d(f + ": " + pcmInfo.toString());
+                }
+            }
+        } else if (view.getId() == R.id.audioTrackStreamBtn) {
+            if (mStaticAudioTrack == null) {
+                mStaticAudioTrack = new MyAudioTrackerStatic();
+            }
+            mStaticAudioTrack.play(getApplicationContext());
         }
     }
 

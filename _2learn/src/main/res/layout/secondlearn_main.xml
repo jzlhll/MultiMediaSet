@@ -46,7 +46,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SimpleAudioRecord: PCM2Wav" />
+        android:text="SimpleAudioRecord: 录完后pcm2wav" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -69,7 +69,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SimpleAudioRecordV2: DirectWav" />
+        android:text="SimpleAudioRecordV2: 先header再录再endHeader" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -93,7 +93,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="AudioRecordV3: ResumeWav" />
+        android:text="AudioRecordV3: V2基础上支持resume" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

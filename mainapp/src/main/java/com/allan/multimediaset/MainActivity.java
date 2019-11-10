@@ -5,9 +5,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
-import com.allan.audiotrack.ThirdMainActivity;
+import com.allan.sound.ThirdMainActivity;
 import com.allan.baselib.IModulePermission;
-import com.allan.baselib.MyLog;
 import com.allan.firstlearn.FirstLearnActivity;
 import com.allan.secondlearn.SecondActivity;
 
@@ -74,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickedThirdBtn(View v) {
         if (BIG_THAN_6_0) {
-            IModulePermission mp = new com.allan.audiotrack.ModelPermissions();
+            IModulePermission mp = new com.allan.sound.ModelPermissions();
             if (EasyPermissions.hasPermissions(this, mp.getPermissions())) {
                 // Already have permission, do the thing
                 // ...

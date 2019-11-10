@@ -52,15 +52,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="AudioTrack" />
+    <Button
+        android:id="@+id/audioTrackStaticBtn"
+        android:layout_width="match_parent"
+        android:onClick="onClickedAudioTrackStatic"
+        android:layout_height="wrap_content"
+        android:text="static play" />
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/audioTrackBtn"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="play" />
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/audioTrackTestGetPcmInfoBtn"
+                android:onClick="onClickedAudioTrackStream"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="测试获取PcmInfo" />
+            <Button
+                android:id="@+id/audioTrackStreamBtn"
+                android:layout_width="match_parent"
+                android:onClick="onClickedAudioTrackStream"
+                android:layout_height="wrap_content"
+                android:text="stream play" />
+
+        </LinearLayout>
     </LinearLayout>
 
     <TextView

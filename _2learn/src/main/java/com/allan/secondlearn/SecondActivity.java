@@ -1,10 +1,14 @@
 package com.allan.secondlearn;
 
 import android.app.Activity;
+import android.media.AudioFormat;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 
+import com.allan.baselib.MainUIManager;
+import com.allan.baselib.MyLog;
+import com.allan.pcm.PcmInfo;
 import com.allan.secondlearn.audioRecordV3.ResumeWavAudioRecord3_1;
 import com.allan.secondlearn.mediaRecord.MediaRecordAudio;
 import com.allan.secondlearn.simpleAudioRecordV1.SimpleWavAudioRecord;
@@ -32,9 +36,17 @@ public class SecondActivity extends Activity {
         }
     }
 
+    private int mIndexOfDirectStart = 0;
+
     public void onClickedAudioRecordV2(View view) {
         if (view.getId() == R.id.buttonDirectStart) {
-            mRecord = new SimpleWavAudioRecord2_0();
+            PcmInfo[] pcminfos = SimpleWavAudioRecord2_0.getAllPcmInfos();
+            PcmInfo pcminfo = pcminfos[mIndexOfDirectStart++];
+            if (mIndexOfDirectStart == pcminfos.length) {
+                mIndexOfDirectStart = 0;
+            }
+            MainUIManager.get().toastSnackbar(view, pcminfo.getMask());
+            mRecord = new SimpleWavAudioRecord2_0("v2_" + pcminfo.getMask()+ ".wav", pcminfo);
             mRecord.start();
         } else if (view.getId() == R.id.buttonDirectStop) {
             mRecord.stop();

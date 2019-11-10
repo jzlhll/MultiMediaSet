@@ -26,5 +26,5 @@ dependencies {
     implementation project(path: ':mainBaseLib')
     implementation project(path: ':_1learn')
     implementation project(path: ':_2learn')
-    compile project(path: ':_3learn')
+    implementation project(path: ':_3learn')
 }

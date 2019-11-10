@@ -1,8 +1,7 @@
-package com.allan.audiotrack.mediaplayer;
+package com.allan.sound.mediaplayer;
 
 import android.content.Context;
 import android.media.MediaPlayer;
-import android.os.Environment;
 import android.os.HandlerThread;
 import android.os.Message;
 

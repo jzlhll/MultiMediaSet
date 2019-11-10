@@ -8,7 +8,7 @@ import android.os.Environment;
 import com.allan.baselib.MyLog;
 import com.allan.baselib.ThreadPoolUtils;
 import com.allan.secondlearn.IRecord;
-import com.allan.secondlearn.mediaRecord.MediaRecordAudio;
+import com.allan.secondlearn.PCMAndWavUtil;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -35,7 +35,6 @@ public class ResumeWavAudioRecord3_1 implements IRecord {
 
     public ResumeWavAudioRecord3_1() {
     }
-
 
     @Override
     public void start() {
@@ -99,7 +98,7 @@ public class ResumeWavAudioRecord3_1 implements IRecord {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                PcmUtils3_0 pcm = new PcmUtils3_0(SAMPLE_RATE, CANNEL_CONFIG, FORMAT);
+                PCMAndWavUtil pcm = new PCMAndWavUtil(SAMPLE_RATE, CANNEL_CONFIG, FORMAT);
                 long dataLength = 0;
                 if (null != file) {
                     if (!isAppend) { //如果是全新才进去添加header
@@ -142,7 +141,7 @@ public class ResumeWavAudioRecord3_1 implements IRecord {
                         if (!isAppend) {
                             pcm.endPcmHeader(file, dataLength);
                         } else {
-                            pcm.appendEndPcmHeader(file, oldFileSize, dataLength);
+                            pcm.appendOldPcmHeader(file, oldFileSize, dataLength);
                         }
                         file.close();
                     }

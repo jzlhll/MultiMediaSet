@@ -8,7 +8,7 @@ import android.os.Environment;
 import com.allan.baselib.MyLog;
 import com.allan.baselib.ThreadPoolUtils;
 import com.allan.secondlearn.IRecord;
-import com.allan.secondlearn.simpleAudioRecordV2.PCM2WavUtil2_0;
+import com.allan.secondlearn.PCMAndWavUtil;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -67,7 +67,7 @@ public class ResumeWavAudioRecord3_0 implements IRecord {
                     e.printStackTrace();
                 }
 
-                PCM2WavUtil2_0 pcm = new PCM2WavUtil2_0(SAMPLE_RATE, CANNEL_CONFIG, FORMAT);
+                PCMAndWavUtil pcm = new PCMAndWavUtil(SAMPLE_RATE, CANNEL_CONFIG, FORMAT);
                 long dataLength = 0;
                 if (null != file) {
                     try {
