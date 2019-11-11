@@ -50,7 +50,11 @@ class SimplePCMAudioRecord implements ISimpleRecord {
                     throw new RuntimeException("错误init");
                 }
                 mMinBufferSize = AudioRecord.getMinBufferSize(SAMPLE_RATE, CANNEL_CONFIG, FORMAT);
-                MyLog.d(TAG, "min buff size " + mMinBufferSize);
+                MyLog.d(TAG, "min buff size " + mMinBufferSize + " ; " + SAMPLE_RATE + " " + CANNEL_CONFIG + " " + FORMAT);
+                if (mMinBufferSize < 0) {
+                    MyLog.e(TAG, "Error ! min buff size " + mMinBufferSize);
+                    return;
+                }
                 mAudioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC, SAMPLE_RATE,
                         CANNEL_CONFIG, FORMAT, mMinBufferSize);
                 mData = new byte[mMinBufferSize];

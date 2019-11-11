@@ -3,19 +3,17 @@ package com.allan.secondlearn;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 
+import com.allan.baselib.MyLog;
+import com.allan.pcm.PcmInfo;
+
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
-import com.allan.baselib.BuildConfig;
-import com.allan.baselib.MyLog;
-import com.allan.pcm.PcmInfo;
 
 /**
  * 将pcm音频文件转换为wav音频文件
@@ -35,11 +33,11 @@ public class PCMAndWavUtil {
     private int encodingFmt;
     /**
      * @param sampleRate sample rate、采样率
-     * @param channel channel、声道
+     * @param inChannel channel、声道
      */
-    public PCMAndWavUtil(int sampleRate, int channel, int encodingFmt) {
+    public PCMAndWavUtil(int sampleRate, int inChannel, int encodingFmt) {
         this.mSampleRate = sampleRate;
-        this.mChannel = channel;
+        this.mChannel = inChannel;
         this.encodingFmt = encodingFmt;
         switch (encodingFmt) {
             case AudioFormat.ENCODING_PCM_8BIT:
@@ -209,6 +207,10 @@ public class PCMAndWavUtil {
         int channels = mChannel == AudioFormat.CHANNEL_IN_MONO ? 1 : 2;
         long byteRate = encodingBit * mSampleRate * channels / 8;
         int mBufferSize = AudioRecord.getMinBufferSize(mSampleRate, mChannel, encodingFmt);
+        if (mBufferSize < 0) {
+            MyLog.e("错误！！" + mBufferSize + "mSampleRate " + mSampleRate + " mChannel " + mChannel + " encodingFmt " + encodingFmt);
+            return;
+        }
         byte[] data = new byte[mBufferSize];
         try (FileInputStream in = new FileInputStream(inFilename);
              FileOutputStream out = new FileOutputStream(outFilename)) {
@@ -237,12 +239,12 @@ public class PCMAndWavUtil {
             if (fileInputStream.read(bytes, 0, 44) == -1) {
                 return null;
             }
-            int sampleRate = ((bytes[24] &0xff)  + (bytes[25] &0xff) * 16*16 +
+            int sampleRate = ((bytes[24] & 0xff)  + (bytes[25] &0xff) * 16*16 +
                     (bytes[26] &0xff)* 16*16* 16*16 + (bytes[27] &0xff)* 16*16* 16*16* 16*16);
 
-            int channelNum = bytes[22];
-
-            int encodingFmt = 0;
+            int channelConfig = bytes[22] == 1 ? AudioFormat.CHANNEL_IN_MONO : AudioFormat.CHANNEL_IN_STEREO;
+            //TODO 目前暂时支持这两种
+            int encodingFmt = -1;
             switch (bytes[34]) {
                 case 8:
                     encodingFmt = AudioFormat.ENCODING_PCM_8BIT;
@@ -252,7 +254,11 @@ public class PCMAndWavUtil {
                     break;
             }
 
-            return new PcmInfo(null, sampleRate, channelNum, encodingFmt);
+            if (encodingFmt == -1) {
+                return null; //TODO 目前暂时支持这两种，其实其他的比如float也有比较少，可以查spec
+            }
+
+            return new PcmInfo(null, sampleRate, channelConfig, encodingFmt);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -29,12 +29,16 @@
 
 MediaPlayer 更加适合在后台长时间播放本地音乐文件或者在线的流式资源; SoundPool 则适合播放比较短的音频片段，比如游戏声音、按键声、铃声片段等等，它可以同时播放多个音频; 而 AudioTrack 则更接近底层，提供了非常强大的控制能力，支持低延迟播放，适合流媒体和VoIP语音电话等场景。
 
-1. `soundPool` 适用于简单的音效播放；
+1. `soundPool` 适用于简短的音效播放；
 
-2. `mediaPlayer` 实现了简单的监听完成，监听拖动，暂停，恢复等基本使用；支持多种媒体类型；
+2. `mediaPlayer` 实现了简单的监听完成，监听拖动，暂停，恢复等基本使用；支持多种媒体类型；做播放器推荐即使是wav，各种压缩音频都能轻松播放；（推荐）
 
-3. `audioTrack` TODO
+3. `audioTrack  ` 只支持PCM的WAV。 MyAudioTracker.java的定义中有详细说明。
 
+   ​	 static  模式：先全部导入buffer，再播放;
+   
+   ​	stream模式：一边播放一边导入buffer。（可以玩一玩，目前可以做到暂停恢复。）
+   
    > > 区别
    >
    > MediaPlayer可以播放多种格式MP3，AAC，WAV，OGG，MIDI等。MediaPlayer会在framework层创建对应的音频解码器。而AudioTrack只能播放已解码的PCM流，只支持wav(大部分wav是PCM流)格式的音频文件。AudioTrack不创建解码器，只能播放不需要解码的wav文件。

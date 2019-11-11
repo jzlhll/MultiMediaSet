@@ -32,7 +32,9 @@ public class SimpleWavAudioRecord2_0 implements ISimpleRecord {
 
     private final String FILE_NAME;
 
-    public static PcmInfo[] getAllPcmInfos() { //8bit 很多设备不支持或者声音嘈杂
+    public static PcmInfo[] getAllPcmInfos() { //8bit 很多设备不支持8bit(AudioFormat.ENCODING_PCM_8BIT 3)
+                                            // 都支持encoding16bit(AudioFormat.ENCODING_PCM_16BIT  2)
+                                            //CHANNEL_IN_MONO单通道都支持
         return new PcmInfo[]{
                 new PcmInfo("16k-Mono-16bit",16000, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT),
                 new PcmInfo("16k-Stereo-16bit",16000, AudioFormat.CHANNEL_IN_STEREO, AudioFormat.ENCODING_PCM_16BIT),
@@ -52,7 +54,7 @@ public class SimpleWavAudioRecord2_0 implements ISimpleRecord {
 
     public SimpleWavAudioRecord2_0(String filename, PcmInfo pcmInfo) {
         SAMPLE_RATE = pcmInfo.getSampleRate();
-        CHANNEL_CONFIG = pcmInfo.getChannelConfig();
+        CHANNEL_CONFIG = pcmInfo.getInChannelConfig();
         FORMAT = pcmInfo.getEncodingFmt();
         FILE_NAME = Environment.getExternalStorageDirectory() + File.separator + filename;
     }
@@ -66,6 +68,11 @@ public class SimpleWavAudioRecord2_0 implements ISimpleRecord {
                     throw new RuntimeException("错误init");
                 }
                 mMinBufferSize = AudioRecord.getMinBufferSize(SAMPLE_RATE, CHANNEL_CONFIG, FORMAT);
+                MyLog.d(TAG, "min buff size " + mMinBufferSize + " ; " + SAMPLE_RATE + " " + CHANNEL_CONFIG + " " + FORMAT);
+                if (mMinBufferSize < 0) {
+                    MyLog.d(TAG, "错误的miniBuffSize " + mMinBufferSize);
+                    return;
+                }
                 MyLog.d(TAG, "min buff size " + mMinBufferSize);
                 mAudioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC, SAMPLE_RATE,
                         CHANNEL_CONFIG, FORMAT, mMinBufferSize);

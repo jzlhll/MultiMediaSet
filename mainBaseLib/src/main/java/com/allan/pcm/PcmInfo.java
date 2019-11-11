@@ -1,14 +1,25 @@
 package com.allan.pcm;
 
+import android.media.AudioFormat;
+
 import androidx.annotation.NonNull;
 
 public class PcmInfo {
     public PcmInfo() {
     }
 
-    public PcmInfo(String mask, int sampleRate, int channelConfig, int encodingFmt) {
+    public PcmInfo(String mask, int sampleRate, int inChannelConfig, int encodingFmt) {
         this.sampleRate = sampleRate;
-        this.channelConfig = channelConfig;
+        this.inChannelConfig = inChannelConfig;
+        switch (inChannelConfig) {
+            case AudioFormat.CHANNEL_IN_MONO:
+                outChannelConfig = AudioFormat.CHANNEL_OUT_MONO;
+                break;
+            case AudioFormat.CHANNEL_IN_STEREO:
+                outChannelConfig = AudioFormat.CHANNEL_OUT_STEREO;
+                break;
+        }
+
         this.encodingFmt = encodingFmt;
         this.mask = mask;
     }
@@ -21,12 +32,16 @@ public class PcmInfo {
         this.sampleRate = sampleRate;
     }
 
-    public int getChannelConfig() {
-        return channelConfig;
+    public int getInChannelConfig() {
+        return inChannelConfig;
     }
 
-    public void setChannelConfig(int channelConfig) {
-        this.channelConfig = channelConfig;
+    public int getOutChannelConfig() {
+        return outChannelConfig;
+    }
+
+    public void setInChannelConfig(int channelConfig) {
+        this.inChannelConfig = channelConfig;
     }
 
     public int getEncodingFmt() {
@@ -38,7 +53,8 @@ public class PcmInfo {
     }
 
     private int sampleRate;
-    private int channelConfig;
+    private int inChannelConfig;
+    private int outChannelConfig;
     private int encodingFmt;
     private String mask;
 
@@ -53,6 +69,6 @@ public class PcmInfo {
     @NonNull
     @Override
     public String toString() {
-        return mask + " :sampleRate " + sampleRate + " channel " + channelConfig + " fmt " + encodingFmt;
+        return mask + " :sampleRate=" + sampleRate + ",channelIn/out=" + inChannelConfig + "/" + outChannelConfig + ",fmt=" + encodingFmt;
     }
 }
