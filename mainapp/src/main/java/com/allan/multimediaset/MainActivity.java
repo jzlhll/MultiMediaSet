@@ -9,6 +9,7 @@ import com.allan.sound.ThirdMainActivity;
 import com.allan.baselib.IModulePermission;
 import com.allan.firstlearn.FirstLearnActivity;
 import com.allan.secondlearn.SecondActivity;
+import com.allan.test.TestActivity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int RC_STORAGE_PERMISSION = 101;
     private static final int RC_STORAGE_AUDIO_PERMISSION = 102;
     private static final int RC_STORAGE_PERMISSION_3 = 103;
+    private static final int RC_TEST = 104;
 
     public void onClickedFirstBtn(View v) {
         if (BIG_THAN_6_0) {
@@ -93,6 +95,27 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, ThirdMainActivity.class));
     }
 
+    public void onClickedTestBtn(View v) {
+        if (BIG_THAN_6_0) {
+            IModulePermission mp = new com.allan.test.ModelPermissions();
+            if (EasyPermissions.hasPermissions(this, mp.getPermissions())) {
+                // Already have permission, do the thing
+                // ...
+                startTestBtn();
+            } else {
+                // Do not have permissions, request them now
+                EasyPermissions.requestPermissions(this, mp.getShowWords(),
+                        RC_TEST, mp.getPermissions());
+            }
+        } else {
+            startTestBtn();
+        }
+    }
+
+    @AfterPermissionGranted(RC_TEST) //easypermissions注解要求不能带参数哦。比如上面那个方法就会有问题
+    public void startTestBtn() {
+        startActivity(new Intent(this, TestActivity.class));
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

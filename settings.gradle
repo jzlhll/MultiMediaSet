@@ -1,1 +1,1 @@
-include ':mainapp', ':_1learn', ':mainBaseLib', ':_2learn', ':_3learn'
+include ':mainapp', ':_1learn', ':mainBaseLib', ':_2learn', ':_3learn', ':test'

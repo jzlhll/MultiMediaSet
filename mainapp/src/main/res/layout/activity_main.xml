@@ -24,6 +24,13 @@
             android:layout_height="wrap_content"
             android:onClick="onClickedThirdBtn"
             android:text="第 3课: audioPlayer" />
+
+        <Button
+            android:id="@+id/testBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClickedTestBtn"
+            android:text="测试页面" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
 
