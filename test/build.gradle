@@ -3,7 +3,14 @@ apply plugin: 'com.android.library'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
-
+    signingConfigs {
+        release {
+            storeFile file(".." + File.separator + "allan_sign.jks")
+            storePassword "1928374655"
+            keyAlias "allan"
+            keyPassword "1928374655"
+        }
+    }
 
     defaultConfig {
         minSdkVersion 21
@@ -16,6 +23,7 @@ android {
 
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
