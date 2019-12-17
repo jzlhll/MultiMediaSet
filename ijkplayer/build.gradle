@@ -10,6 +10,8 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+
+        consumerProguardFiles 'consumer-rules.pro'
     }
 
     buildTypes {
@@ -23,7 +25,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
+    //implementation 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
+    //implementation 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation project(path: ':mainBaseLib')
 }

@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.1"
+    buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.allan.multimediaset"
         minSdkVersion 21
@@ -27,5 +27,6 @@ dependencies {
     implementation project(path: ':_1learn')
     implementation project(path: ':_2learn')
     implementation project(path: ':_3learn')
-    compile project(path: ':test')
+    implementation project(path: ':ijkplayer')
+    implementation project(path: ':test')
 }
