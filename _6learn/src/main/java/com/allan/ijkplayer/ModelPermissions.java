@@ -15,6 +15,6 @@ public class ModelPermissions implements IModulePermission {
 
     @Override
     public String getShowWords() {
-        return "halo，给下存储权限吧？";
+        return "AllanPlayer，给下存储权限吧？";
     }
 }

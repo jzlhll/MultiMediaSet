@@ -4,9 +4,9 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
-import androidx.annotation.NonNull;
-
 import java.lang.ref.WeakReference;
+
+import androidx.annotation.NonNull;
 
 public class WeakHandler extends Handler {
     public interface Callback {
@@ -15,9 +15,9 @@ public class WeakHandler extends Handler {
 
     private WeakReference<Callback> mRef;
 
-    public WeakHandler(Callback context) {
+    public WeakHandler(Callback callback) {
         super(Looper.getMainLooper());
-        mRef = new WeakReference<>(context);
+        mRef = new WeakReference<>(callback);
     }
     public WeakHandler(Callback context, Looper looper) {
         super(looper);

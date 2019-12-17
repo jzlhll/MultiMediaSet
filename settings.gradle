@@ -1,1 +1,1 @@
-include ':mainapp', ':_1learn', ':mainBaseLib', ':_2learn', ':_3learn', ':test', ':_5learn', ':ijkplayer'
+include ':mainapp', ':_1learn', ':mainBaseLib', ':_2learn', ':_3learn', ':test', ':_5learn', ':_6learn'

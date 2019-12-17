@@ -27,6 +27,6 @@ dependencies {
     implementation project(path: ':_1learn')
     implementation project(path: ':_2learn')
     implementation project(path: ':_3learn')
-    implementation project(path: ':ijkplayer')
+    implementation project(path: ':_6learn')
     implementation project(path: ':test')
 }
