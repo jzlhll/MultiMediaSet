@@ -1,15 +1,29 @@
+import groovy.json.JsonBuilder
+import groovy.json.JsonSlurper
+
 apply plugin: 'com.android.library'
 
-android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+static void customFunc() {
+    String rootPath = System.getProperty("user.dir")
+    System.out.println("rootPath " + rootPath)
+    String s = System.getProperty("use_mode_sn")
+    System.out.println("compile param: use_mode_sn= " + s)
+    //自行搞自己的逻辑咯，通过一堆配置终于搞定一个属性，把他放入编译全局属性中
+    System.setProperty("config_sn_ba", "huohuo")
+}
 
+android {
+    compileSdkVersion rootProject.ext.versions.compileSdkVersion
+    buildToolsVersion rootProject.ext.versions.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 29
+        minSdkVersion rootProject.ext.versions.minSdkVersion
+        targetSdkVersion rootProject.ext.versions.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        customFunc()
+        buildConfigField "boolean", "USE_SN_MODE", "" + ("1".equals(System.getProperty("use_mode_sn")))
+        buildConfigField "String", "Balabala", "\"" + ("1".equals(System.getProperty("config_sn_ba"))) + "\""
     }
 
     buildTypes {
@@ -23,6 +37,6 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'com.google.android.material:material:1.4.0'
 }

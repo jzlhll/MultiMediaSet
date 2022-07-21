@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MediaRecord" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buttonMediaStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickedMediaRecord"
+            android:text="开始" />
+
+        <Button
+            android:id="@+id/buttonMediaStop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickedMediaRecord"
+            android:text="停止" />
+
+
+        <Button
+            android:id="@+id/buttonMediaPause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickedMediaRecord"
+            android:text="暂停" />
+
+        <Button
+            android:id="@+id/buttonMediaResume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickedMediaRecord"
+            android:text="恢复" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SimpleAudioRecord: 录完后pcm2wav" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/buttonSimpleStart0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickedAudioRecordV1"
+            android:text="PCM开始" />
+
+        <Button
+            android:id="@+id/buttonSimpleStop0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickedAudioRecordV1"
+            android:text="PCM停止" />
+
+        <Button
+            android:id="@+id/buttonSimpleStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickedAudioRecordV1"
+            android:text="开始" />
+
+        <Button
+            android:id="@+id/buttonSimpleStop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickedAudioRecordV1"
+            android:text="停止" />
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SimpleAudioRecordV2: 先header再录再endHeader" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/buttonDirectSelectParam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickedAudioRecordV2"
+            android:text="选参" />
+        <Button
+            android:id="@+id/buttonDirectStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickedAudioRecordV2"
+            android:text="开始" />
+
+        <Button
+            android:id="@+id/buttonDirectStop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickedAudioRecordV2"
+            android:text="停止" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="AudioRecordV3: V2基础上支持resume" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buttonResumeStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickedAudioRecordV3"
+            android:text="开始" />
+
+        <Button
+            android:id="@+id/buttonResumeStop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickedAudioRecordV3"
+            android:text="停止" />
+
+        <Button
+            android:id="@+id/buttonResumePause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickedAudioRecordV3"
+            android:text="暂停" />
+        <Button
+            android:id="@+id/buttonResumeResume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickedAudioRecordV3"
+            android:text="恢复" />
+
+    </LinearLayout>
+
+</LinearLayout>

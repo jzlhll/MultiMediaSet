@@ -15,7 +15,7 @@ public class ThreadPoolUtils {
         if (mThreadPollProxy == null) {
             synchronized (ThreadPollProxy.class) {
                 if (mThreadPollProxy == null) {
-                    mThreadPollProxy = new ThreadPollProxy(3, 6, 1000);
+                    mThreadPollProxy = new ThreadPollProxy(4, 8, 1000);
                 }
             }
         }

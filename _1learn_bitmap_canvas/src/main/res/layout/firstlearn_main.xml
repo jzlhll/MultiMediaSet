@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="#ffffff"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.allan.firstlearn.MyCustomSurfaceView
+        android:id="@+id/sufaceview"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.allan.firstlearn.FirstCustomView
+        android:id="@+id/customview"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_marginTop="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClickedLoad"
+        android:text="加载" />
+
+    <com.allan.firstlearn.RoundRayProgressView
+        android:id="@+id/fr_temp_id1"
+        android:layout_width="160dp"
+        app:progressMode="false"
+        android:visibility="gone"
+        android:layout_height="160dp"
+        android:layout_centerHorizontal="true" />
+
+    <RelativeLayout
+        android:id="@+id/fr_recording_rl"
+        android:layout_width="600dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="600dp">
+
+        <com.allan.firstlearn.CircleImageView
+            android:id="@+id/helpview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            tools:visibility="visible" />
+    </RelativeLayout>
+</RelativeLayout>

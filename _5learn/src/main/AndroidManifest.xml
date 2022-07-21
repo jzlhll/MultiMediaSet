@@ -10,6 +10,10 @@
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+            <data
+                android:host="com.allan.mediaactor"
+                android:path="/test"
+                android:scheme="the5learn" />
         </activity>
     </application>
 </manifest>

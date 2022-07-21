@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
+    <com.allan.multimediaset.MyLinearLayout
+        android:id="@+id/ll"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -24,13 +26,25 @@
             android:layout_height="wrap_content"
             android:onClick="onClickedThirdBtn"
             android:text="第 3课: audioPlayer" />
-
+        <Button
+            android:id="@+id/thirdBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClickLanyaBtn"
+            android:text="蓝牙" />
         <Button
             android:id="@+id/testBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickedTestBtn"
             android:text="测试页面" />
-    </LinearLayout>
+
+        <Button
+            android:id="@+id/test2Btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClickedTest2Btn"
+            android:text="跳转测试" />
+    </com.allan.multimediaset.MyLinearLayout>
 </androidx.core.widget.NestedScrollView>
 

@@ -1,32 +1,41 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    compileSdkVersion rootProject.ext.versions.compileSdkVersion
+    buildToolsVersion rootProject.ext.versions.buildToolsVersion
     defaultConfig {
         applicationId "com.allan.multimediaset"
-        minSdkVersion 21
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion rootProject.ext.versions.minSdkVersion
+        targetSdkVersion rootProject.ext.versions.targetSdkVersion
+        versionCode rootProject.ext.versions.versionCode
+        versionName rootProject.ext.versions.versionName
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
     implementation 'pub.devrel:easypermissions:3.0.0'
     implementation project(path: ':mainBaseLib')
-    implementation project(path: ':_1learn')
-    implementation project(path: ':_2learn')
-    implementation project(path: ':_3learn')
+    implementation project(path: ':_1learn_bitmap_canvas')
+    implementation project(path: ':_2learn_audiorecords')
+    implementation project(path: ':_3learn_audioplayers')
     implementation project(path: ':_6learn')
+//    implementation project(path: ':_8learn_opengl')
     implementation project(path: ':test')
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'androidx.remotecallback:remotecallback:1.0.0-alpha02'
+    implementation project(path: ':_9learn_others')
+    annotationProcessor 'androidx.remotecallback:remotecallback-processor:1.0.0-alpha02'
 }

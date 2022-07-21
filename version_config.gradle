@@ -1,0 +1,19 @@
+
+ext {
+    // app 相关版本控制
+    versions = [
+            minSdkVersion      : 21,
+            targetSdkVersion   : 29,
+            compileSdkVersion  : 29,
+            buildToolsVersion  : "29.0.2",
+
+            versionCode        : 520,
+            versionName        : "1.0.0"
+    ]
+
+    // 依赖相关版本控制
+    dep_vers = [
+            test : "1.2.0",
+            test2 : "26.0.0-alpha1"
+    ]
+}

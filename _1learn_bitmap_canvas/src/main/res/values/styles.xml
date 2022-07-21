@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="facerecord_roundray_style">
+        <attr format="integer" name="progress"/>
+        <attr format="boolean" name="progressMode"/>
+        <attr format="boolean" name="justModeAutoAnim"/>
+        <attr format="integer" name="justModeDelayStartTs"/> <!--justMode 起始推迟时间 -->
+        <attr format="integer" name="justModeEachTs"/> <!--justMode 每次间隔时间 -->
+    </declare-styleable>
+</resources>
