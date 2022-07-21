@@ -1,3 +1,4 @@
 include ':mainapp', ':_1learn_bitmap_canvas', ':mainBaseLib', ':_2learn_audiorecords', ':_3learn_audioplayers', ':test', ':_5learn', ':_6learn', ':_7learn_miracast'
 include ':_9learn_others'
 include ':webview'
+include ':NetPullRecycleView'
